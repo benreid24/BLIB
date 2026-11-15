@@ -1,7 +1,7 @@
 #include <BLIB/Serialization/JSON/JSONLoader.hpp>
 
 #include <BLIB/Logging.hpp>
-#include <BLIB/Util/StreamUtil.hpp>
+#include <BLIB/Streams/StreamUtil.hpp>
 #include <fstream>
 
 namespace bl
@@ -16,7 +16,7 @@ Loader::Loader(const std::string& filename)
 , valid(input.isValid())
 , filename(filename)
 , currentLine(0) {
-    util::StreamUtil::skipWhitespace(input);
+    stream::StreamUtil::skipWhitespace(input);
 }
 
 Loader::Loader(stream::InputStream& stream)
@@ -24,7 +24,7 @@ Loader::Loader(stream::InputStream& stream)
 , filename("memory")
 , valid(input.isValid())
 , currentLine(0) {
-    util::StreamUtil::skipWhitespace(input);
+    stream::StreamUtil::skipWhitespace(input);
 }
 
 std::string Loader::error() {
@@ -42,9 +42,9 @@ void Loader::skipWhitespace() {
 
 void Loader::skipSymbol() {
     if (isValid()) {
-        util::StreamUtil::skipWhitespace(input);
+        stream::StreamUtil::skipWhitespace(input);
         input.get();
-        util::StreamUtil::skipWhitespace(input);
+        stream::StreamUtil::skipWhitespace(input);
     }
 }
 
@@ -60,7 +60,7 @@ bool Loader::loadValue(Value& result) {
     const SourceInfo source = {filename, currentLine};
     result.setSource(source);
 
-    util::StreamUtil::skipWhitespace(input);
+    stream::StreamUtil::skipWhitespace(input);
     if (isNumeric(input.peek())) { return loadNumeric(result); }
     if (input.peek() == '"') {
         std::string str;
@@ -91,19 +91,19 @@ bool Loader::loadValue(Value& result) {
 }
 
 bool Loader::loadBool(bool& result) {
-    util::StreamUtil::skipWhitespace(input);
+    stream::StreamUtil::skipWhitespace(input);
     if (input.peek() == 't' || input.peek() == 'f') {
         std::string word;
         word.reserve(5);
         while (std::isalpha(input.peek()) && input.isValid()) {
             word.push_back(input.get());
             if (word == "true") {
-                util::StreamUtil::skipWhitespace(input);
+                stream::StreamUtil::skipWhitespace(input);
                 result = true;
                 return true;
             }
             if (word == "false") {
-                util::StreamUtil::skipWhitespace(input);
+                stream::StreamUtil::skipWhitespace(input);
                 result = false;
                 return true;
             }
@@ -132,7 +132,7 @@ bool Loader::loadBool(bool& result) {
 
 bool Loader::loadNumeric(Value& val) {
     if (isValid()) {
-        util::StreamUtil::skipWhitespace(input);
+        stream::StreamUtil::skipWhitespace(input);
         const char c = input.peek();
         if (c == '-' || (c >= '0' && c <= '9')) {
             std::string num;
@@ -153,7 +153,7 @@ bool Loader::loadNumeric(Value& val) {
                 }
                 n = static_cast<char>(input.peek());
             }
-            util::StreamUtil::skipWhitespace(input);
+            stream::StreamUtil::skipWhitespace(input);
             if (decimal) { val = std::stof(num.c_str()); }
             else { val = std::stol(num.c_str()); }
             return true;
@@ -171,7 +171,7 @@ bool Loader::loadString(std::string& result) {
     result.clear();
 
     if (isValid()) {
-        util::StreamUtil::skipWhitespace(input);
+        stream::StreamUtil::skipWhitespace(input);
         if (input.peek() == '"') {
             input.get();
             while (input.peek() != '"') {
@@ -213,7 +213,7 @@ bool Loader::loadList(List& result) {
     result.clear();
 
     if (!isValid()) return false;
-    util::StreamUtil::skipWhitespace(input);
+    stream::StreamUtil::skipWhitespace(input);
 
     if (input.peek() != '[') {
         valid = false;
@@ -244,7 +244,7 @@ bool Loader::loadGroup(Group& result) {
 
     if (!isValid()) return false;
 
-    util::StreamUtil::skipWhitespace(input);
+    stream::StreamUtil::skipWhitespace(input);
     if (input.peek() != '{') {
         valid = false;
         BL_LOG_ERROR << error() << "Expecting '{' but got '" << static_cast<char>(input.peek())

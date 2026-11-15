@@ -21,15 +21,19 @@ struct Payload {
 struct DefaultLoader {
     static bool read(Payload& result, stream::InputStream& input) {
         detail::InputStreamWrapper wrapper(input);
-        if (!wrapper.read(result.ogField)) return false;
-        if (!wrapper.read(result.ogString)) return false;
+        try {
+            wrapper.read(result.ogField);
+            wrapper.read(result.ogString);
+        } catch (...) { return false; }
         return true;
     }
 
     static bool write(const Payload& value, stream::OutputStream& output) {
         detail::OutputStreamWrapper wrapper(output);
-        if (!wrapper.write(value.ogField)) return false;
-        if (!wrapper.write(value.ogString)) return false;
+        try {
+            wrapper.write(value.ogField);
+            wrapper.write(value.ogString);
+        } catch (...) { return false; }
         return true;
     }
 };
@@ -39,32 +43,40 @@ using Version0 = DefaultLoader;
 struct Version1 {
     static bool read(Payload& result, stream::InputStream& input) {
         detail::InputStreamWrapper wrapper(input);
-        if (!Version0::read(result, input)) return false;
-        if (!wrapper.read(result.newInt)) return false;
-        return true;
+        try {
+            if (!Version0::read(result, input)) return false;
+            wrapper.read(result.newInt);
+            return true;
+        } catch (...) { return false; }
     }
 
     static bool write(const Payload& value, stream::OutputStream& output) {
         detail::OutputStreamWrapper wrapper(output);
-        if (!Version0::write(value, output)) return false;
-        if (!wrapper.write(value.newInt)) return false;
-        return true;
+        try {
+            if (!Version0::write(value, output)) return false;
+            wrapper.write(value.newInt);
+            return true;
+        } catch (...) { return false; }
     }
 };
 
 struct Version2 {
     static bool read(Payload& result, stream::InputStream& input) {
         detail::InputStreamWrapper wrapper(input);
-        if (!Version1::read(result, input)) return false;
-        if (!wrapper.read(result.newerString)) return false;
-        return true;
+        try {
+            if (!Version1::read(result, input)) return false;
+            wrapper.read(result.newerString);
+            return true;
+        } catch (...) { return false; }
     }
 
     static bool write(const Payload& value, stream::OutputStream& output) {
         detail::OutputStreamWrapper wrapper(output);
-        if (!Version1::write(value, output)) return false;
-        if (!wrapper.write(value.newerString)) return false;
-        return true;
+        try {
+            if (!Version1::write(value, output)) return false;
+            wrapper.write(value.newerString);
+            return true;
+        } catch (...) { return false; }
     }
 };
 
@@ -165,9 +177,9 @@ TEST(BinaryVersionedSerializer, EnsureVersionOrder) {
     detail::InputStreamWrapper wrapper(in);
 
     std::uint32_t header;
-    ASSERT_TRUE(wrapper.read<std::uint32_t>(header));
+    ASSERT_NO_THROW(wrapper.read<std::uint32_t>(header));
     std::uint32_t version;
-    ASSERT_TRUE(wrapper.read<std::uint32_t>(version));
+    ASSERT_NO_THROW(wrapper.read<std::uint32_t>(version));
     EXPECT_EQ(version, 2);
 }
 

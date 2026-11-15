@@ -63,12 +63,14 @@ bool SoundDriver::doWrite(as::WriteContext& ctx, const SoundPayload& payload) {
         return false;
     }
     std::unique_ptr<char[]> buffer = std::make_unique<char[]>(1024 * 1024);
-    while (tempInput) {
-        tempInput.read(buffer.get(), 1024 * 1024);
-        if (!output.write(buffer.get(), tempInput.gcount())) {
-            BL_LOG_ERROR << "Failed to write temp sound file to output stream";
-            return false;
+    try {
+        while (tempInput) {
+            tempInput.read(buffer.get(), 1024 * 1024);
+            output.write(buffer.get(), tempInput.gcount());
         }
+    } catch (const serial::SerializationError& e) {
+        BL_LOG_ERROR << "Failed to write temp sound file to output stream: " << e.what();
+        return false;
     }
 
     // cleanup but dont fail if it doesnt work

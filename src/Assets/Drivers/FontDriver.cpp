@@ -48,7 +48,7 @@ bool FontDriver::doRead(as::ReadContext& ctx, FontPayload& payload) {
 bool FontDriver::doWrite(as::WriteContext& ctx, const FontPayload& payload) {
     stream::OutputStream output;
     if (!ctx.setupWriteStream("font.ttf", output)) { return false; }
-    return output.write(payload.buffer.data(), payload.buffer.size());
+    return output.writeChecked(payload.buffer.data(), payload.buffer.size());
 }
 
 } // namespace asi

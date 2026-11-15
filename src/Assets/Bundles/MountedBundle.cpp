@@ -17,7 +17,7 @@ MountedBundle::MountedBundle(Repository&, const std::string& path)
         return;
     }
 
-    if (!serial::binary::Serializer<BundleData>::deserialize(input, data)) {
+    if (!serial::binary::SerializerChecked<BundleData>::deserialize(input, data)) {
         BL_LOG_ERROR << "Failed to load bundle: " << path;
     }
 }

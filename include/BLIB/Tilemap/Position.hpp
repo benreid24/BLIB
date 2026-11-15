@@ -129,16 +129,16 @@ namespace binary
 {
 template<>
 struct Serializer<tmap::Position, false> {
-    static bool serialize(stream::OutputStream& output, const tmap::Position& position) {
-        if (!Serializer<glm::i32vec2>::serialize(output, position.position)) return false;
-        if (!Serializer<tmap::Direction>::serialize(output, position.direction)) { return false; }
-        return Serializer<std::uint8_t>::serialize(output, position.level);
+    static void serialize(stream::OutputStream& output, const tmap::Position& position) {
+        Serializer<glm::i32vec2>::serialize(output, position.position);
+        Serializer<tmap::Direction>::serialize(output, position.direction);
+        Serializer<std::uint8_t>::serialize(output, position.level);
     }
 
-    static bool deserialize(stream::InputStream& input, tmap::Position& result) {
-        if (!Serializer<glm::i32vec2>::deserialize(input, result.position)) return false;
-        if (!Serializer<tmap::Direction>::deserialize(input, result.direction)) { return false; }
-        return Serializer<std::uint8_t>::deserialize(input, result.level);
+    static void deserialize(stream::InputStream& input, tmap::Position& result) {
+        Serializer<glm::i32vec2>::deserialize(input, result.position);
+        Serializer<tmap::Direction>::deserialize(input, result.direction);
+        Serializer<std::uint8_t>::deserialize(input, result.level);
     }
 
     static std::uint32_t size(const tmap::Position& pos) {

@@ -96,7 +96,7 @@ TEST(JsonSerializableObject, SingleLevel) {
     const json::Value encoded = NestedSerializer::serialize(orig);
 
     Nested unpacked(false, -5);
-    ASSERT_TRUE(NestedSerializer::deserialize(unpacked, encoded));
+    ASSERT_NO_THROW(NestedSerializer::deserialize(unpacked, encoded));
     EXPECT_EQ(unpacked.boolValue, true);
     EXPECT_NEAR(unpacked.floatValue, 37.5, 0.1);
 }
@@ -106,7 +106,7 @@ TEST(JsonSerializableObject, Nested) {
     const json::Value encoded = DataSerializer::serialize(data);
 
     Data unpacked(343, "notstring", {Nested(false, 101)});
-    ASSERT_TRUE(DataSerializer::deserialize(unpacked, encoded));
+    ASSERT_NO_THROW(DataSerializer::deserialize(unpacked, encoded));
     EXPECT_EQ(unpacked.intValue, 42);
     EXPECT_EQ(unpacked.stringValue, "string");
     EXPECT_EQ(unpacked.nestedValue[0].boolValue, true);
@@ -123,7 +123,7 @@ TEST(JsonSerializableObject, DefaultValue) {
     ASSERT_TRUE(json::loadFromStream(input, data));
     ASSERT_EQ(data.getInteger("one"), 5);
     Relaxed result;
-    EXPECT_TRUE(RelazedSerializer::deserialize(result, data));
+    ASSERT_NO_THROW(RelazedSerializer::deserialize(result, data));
     EXPECT_EQ(result.one, 5);
     EXPECT_EQ(result.two, 56);
     EXPECT_EQ(result.three, 6);
@@ -135,7 +135,7 @@ TEST(JsonSerializableObject, RequiredField) {
     json::Group data;
     ASSERT_TRUE(json::loadFromStream(ss, data));
     Relaxed result;
-    ASSERT_FALSE(RelazedSerializer::deserialize(result, data));
+    ASSERT_THROW(RelazedSerializer::deserialize(result, data), SerializationError);
 }
 } // namespace unittest
 
@@ -230,12 +230,12 @@ TEST(BinarySerializableObject, SerializeObject) {
     boi.fF()       = 0.55f;
 
     stream::OutputStream stream(1024);
-    ASSERT_TRUE(binary::Serializer<TestyBoi>::serialize(stream, boi));
+    ASSERT_NO_THROW(binary::Serializer<TestyBoi>::serialize(stream, boi));
     ASSERT_EQ(stream.getBuffer().size(), binary::Serializer<TestyBoi>::size(boi));
 
     TestyBoi read;
     stream::InputStream in(stream.getBuffer());
-    ASSERT_TRUE(binary::Serializer<TestyBoi>::deserialize(in, read));
+    ASSERT_NO_THROW(binary::Serializer<TestyBoi>::deserialize(in, read));
 
     EXPECT_EQ(boi.strF(), read.strF());
     EXPECT_EQ(boi.u32F(), read.u32F());
@@ -252,12 +252,12 @@ TEST(BinarySerializableObject, NewReadOld) {
     boi.bF()       = true;
 
     stream::OutputStream stream(1024);
-    ASSERT_TRUE(binary::Serializer<TestyBoi>::serialize(stream, boi));
+    ASSERT_NO_THROW(binary::Serializer<TestyBoi>::serialize(stream, boi));
     ASSERT_EQ(stream.getBuffer().size(), binary::Serializer<TestyBoi>::size(boi));
 
     TestyBoi2 read;
     stream::InputStream in(stream.getBuffer());
-    ASSERT_TRUE(binary::Serializer<TestyBoi2>::deserialize(in, read));
+    ASSERT_NO_THROW(binary::Serializer<TestyBoi2>::deserialize(in, read));
 
     EXPECT_EQ(boi.strF(), read.strF());
     EXPECT_EQ(boi.u32F(), read.u32F());
@@ -275,12 +275,12 @@ TEST(BinarySerializableObject, OldReadNew) {
     boi.newfieldF() = "unread";
 
     stream::OutputStream stream(1024);
-    ASSERT_TRUE(binary::Serializer<TestyBoi2>::serialize(stream, boi));
+    ASSERT_NO_THROW(binary::Serializer<TestyBoi2>::serialize(stream, boi));
     ASSERT_EQ(stream.getBuffer().size(), binary::Serializer<TestyBoi2>::size(boi));
 
     TestyBoi read;
     stream::InputStream in(stream.getBuffer());
-    ASSERT_TRUE(binary::Serializer<TestyBoi>::deserialize(in, read));
+    ASSERT_NO_THROW(binary::Serializer<TestyBoi>::deserialize(in, read));
 
     EXPECT_EQ(boi.strF(), read.strF());
     EXPECT_EQ(boi.u32F(), read.u32F());
@@ -297,11 +297,11 @@ TEST(BinarySerializableObject, SerializePackedObject) {
     boi.fF()       = 0.55f;
 
     stream::OutputStream stream(1024);
-    ASSERT_TRUE(binary::Serializer<TestyBoi>::serializePacked(stream, boi));
+    ASSERT_NO_THROW(binary::Serializer<TestyBoi>::serializePacked(stream, boi));
 
     TestyBoi read;
     stream::InputStream in(stream.getBuffer());
-    ASSERT_TRUE(binary::Serializer<TestyBoi>::deserializePacked(in, read));
+    ASSERT_NO_THROW(binary::Serializer<TestyBoi>::deserializePacked(in, read));
 
     EXPECT_EQ(boi.strF(), read.strF());
     EXPECT_EQ(boi.u32F(), read.u32F());

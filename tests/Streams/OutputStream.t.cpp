@@ -21,7 +21,7 @@ TEST_F(OutputStreamTest, OpenFile) {
     OutputStream stream(TestFilePath);
     EXPECT_TRUE(stream.isValid());
     EXPECT_EQ(stream.getMode(), Mode::File);
-    EXPECT_TRUE(stream.write(TestString.data(), TestString.size()));
+    ASSERT_NO_THROW(stream.write(TestString.data(), TestString.size()));
     stream.close();
 
     std::string buf;
@@ -33,7 +33,7 @@ TEST_F(OutputStreamTest, OpenMemory) {
     OutputStream stream(TestString.size());
     EXPECT_TRUE(stream.isValid());
     EXPECT_EQ(stream.getMode(), Mode::Memory);
-    EXPECT_TRUE(stream.write(TestString.data(), TestString.size()));
+    ASSERT_NO_THROW(stream.write(TestString.data(), TestString.size()));
     const auto buf = stream.getBuffer();
     EXPECT_EQ(std::string(buf.data(), buf.size()), TestString);
 }
@@ -43,7 +43,7 @@ TEST_F(OutputStreamTest, OpenWrapper) {
     OutputStream stream(oss);
     EXPECT_TRUE(stream.isValid());
     EXPECT_EQ(stream.getMode(), Mode::Wrapper);
-    EXPECT_TRUE(stream.write(TestString.data(), TestString.size()));
+    ASSERT_NO_THROW(stream.write(TestString.data(), TestString.size()));
     EXPECT_EQ(oss.str(), TestString);
 }
 

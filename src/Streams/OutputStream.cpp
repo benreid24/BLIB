@@ -1,6 +1,6 @@
 #include <BLIB/Streams/OutputStream.hpp>
 
-#include <BLIB/Util/FileUtil.hpp>
+#include <BLIB/Streams/StreamError.hpp>
 #include <BLIB/Util/Visitor.hpp>
 #include <cstring>
 
@@ -56,29 +56,42 @@ void OutputStream::open(std::vector<char>& buf) { stream.emplace<std::vector<cha
 
 void OutputStream::close() { stream.emplace<std::monostate>(); }
 
-bool OutputStream::write(const void* voidData, std::size_t len) {
+void OutputStream::write(const void* voidData, std::size_t len) {
     const char* data = static_cast<const char*>(voidData);
-    return std::visit(util::Visitor{[](const std::monostate&) { return false; },
-                                    [data, len](std::ofstream& stream) {
-                                        stream.write(data, len);
-                                        return stream.good();
-                                    },
-                                    [data, len](std::vector<char>& buffer) {
-                                        buffer.insert(buffer.end(), data, data + len);
-                                        return true;
-                                    },
-                                    [data, len](std::ostream* stream) {
-                                        if (stream == nullptr) { return false; }
-                                        stream->write(data, len);
-                                        return stream->good();
-                                    },
-                                    [data, len](std::vector<char>* buf) {
-                                        const std::size_t start = buf->size();
-                                        buf->resize(buf->size() + len);
-                                        std::memcpy(buf->data() + start, data, len);
-                                        return true;
-                                    }},
-                      stream);
+    std::visit(util::Visitor{[](const std::monostate&) {
+                                 throw StreamError("Cannot write to closed stream");
+                             },
+                             [data, len](std::ofstream& stream) {
+                                 stream.write(data, len);
+                                 if (!stream.good()) {
+                                     throw StreamError("Failed to write to file stream");
+                                 }
+                             },
+                             [data, len](std::vector<char>& buffer) {
+                                 buffer.insert(buffer.end(), data, data + len);
+                             },
+                             [data, len](std::ostream* stream) {
+                                 if (stream == nullptr) {
+                                     throw StreamError("Cannot write to null stream");
+                                 }
+                                 stream->write(data, len);
+                                 if (!stream->good()) {
+                                     throw StreamError("Failed to write to output stream");
+                                 }
+                             },
+                             [data, len](std::vector<char>* buf) {
+                                 const std::size_t start = buf->size();
+                                 buf->resize(buf->size() + len);
+                                 std::memcpy(buf->data() + start, data, len);
+                             }},
+               stream);
+}
+
+bool OutputStream::writeChecked(const void* data, std::size_t len) {
+    try {
+        write(data, len);
+        return true;
+    } catch (const StreamError&) { return false; }
 }
 
 std::span<const char> OutputStream::getBuffer() const {

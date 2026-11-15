@@ -135,18 +135,17 @@ namespace binary
 {
 template<>
 struct Serializer<rand::UUID> {
-    static bool serialize(stream::OutputStream& output, const rand::UUID& uuid) {
+    static void serialize(stream::OutputStream& output, const rand::UUID& uuid) {
         detail::OutputStreamWrapper wrapper(output);
-        if (!wrapper.write<std::uint64_t>(uuid.getPart1())) return false;
-        return wrapper.write<std::uint64_t>(uuid.getPart2());
+        wrapper.write<std::uint64_t>(uuid.getPart1());
+        wrapper.write<std::uint64_t>(uuid.getPart2());
     }
-    static bool deserialize(stream::InputStream& input, rand::UUID& uuid) {
+    static void deserialize(stream::InputStream& input, rand::UUID& uuid) {
         detail::InputStreamWrapper wrapper(input);
         std::uint64_t part1, part2;
-        if (!wrapper.read<std::uint64_t>(part1)) return false;
-        if (!wrapper.read<std::uint64_t>(part2)) return false;
+        wrapper.read<std::uint64_t>(part1);
+        wrapper.read<std::uint64_t>(part2);
         uuid = rand::UUID(part1, part2);
-        return true;
     }
     static std::uint32_t size(const rand::UUID&) { return sizeof(std::uint64_t) * 2; }
 };
@@ -156,17 +155,14 @@ namespace json
 {
 template<>
 struct Serializer<rand::UUID> {
-    static bool deserialize(rand::UUID& result, const Value& v) {
+    static void deserialize(rand::UUID& result, const Value& v) {
         const std::string* r = v.getAsString();
-        if (r != nullptr) {
-            result = rand::UUID(*r);
-            return true;
-        }
-        return false;
+        if (r != nullptr) { result = rand::UUID(*r); }
+        else { throw SerializationError("JSON value was not a string for UUID"); }
     }
 
-    static bool deserializeFrom(const Value& val, const std::string& name, rand::UUID& result) {
-        return priv::Serializer<rand::UUID>::deserializeFrom(val, name, result, &deserialize);
+    static void deserializeFrom(const Value& val, const std::string& name, rand::UUID& result) {
+        priv::Serializer<rand::UUID>::deserializeFrom(val, name, result, &deserialize);
     }
 
     static Value serialize(const rand::UUID& value) { return Value(value.toString()); }
@@ -175,17 +171,16 @@ struct Serializer<rand::UUID> {
         priv::Serializer<rand::UUID>::serializeInto(result, name, value, &serialize);
     }
 
-    static bool deserializeStream(stream::InputStream& stream, rand::UUID& result) {
+    static void deserializeStream(stream::InputStream& stream, rand::UUID& result) {
         json::Loader loader(stream);
         std::string str;
-        if (!loader.loadString(str)) { return false; }
+        if (!loader.loadString(str)) { throw SerializationError("Failed to load string for UUID"); }
         result = rand::UUID(str);
-        return true;
     }
 
-    static bool serializeStream(stream::OutputStream& stream, const rand::UUID& value, unsigned int,
+    static void serializeStream(stream::OutputStream& stream, const rand::UUID& value, unsigned int,
                                 unsigned int) {
-        return Serializer<std::string>::serializeStream(stream, value.toString(), 0, 0);
+        Serializer<std::string>::serializeStream(stream, value.toString(), 0, 0);
     }
 };
 } // namespace json

@@ -621,7 +621,9 @@ template<typename T>
 template<typename ET>
 ObjectPool<T>::IteratorType<ET>::IteratorType(EP e, EP end)
 : pos(e)
-, end(end) {}
+, end(end) {
+    while (pos != end && !pos->alive()) { ++pos; }
+}
 
 template<typename T>
 template<typename ET>

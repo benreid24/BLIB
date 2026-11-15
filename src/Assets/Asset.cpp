@@ -139,7 +139,7 @@ bool Asset::saveEditor() {
     std::string metadataPath =
         EditorPaths::getAssetMetadataFilePath(repo->getAssetDirectory(), *this);
     stream::OutputStream metadataFile(metadataPath);
-    if (!serial::json::Serializer<Asset>::serializeStream(metadataFile, *this, 4, 0)) {
+    if (!serial::json::SerializerChecked<Asset>::serializeStream(metadataFile, *this, 4, 0)) {
         BL_LOG_ERROR << "Failed to write asset metadata to " << metadataPath;
         return false;
     }

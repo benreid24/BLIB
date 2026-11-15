@@ -76,6 +76,7 @@ Engine::~Engine() {
         renderingThread.value().join();
     }
 
+    logging::Config::setIsBuffering(false);
     fastTaskWorkers.shutdown();
     longTaskWorkers.shutdown();
     workers.shutdown();

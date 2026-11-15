@@ -78,8 +78,7 @@ bool MaterialDriver::doCreate(as::CreateContext& ctx, MaterialPayload& payload) 
             if (ctx.getCustomData().getIsSourceReload()) {
                 if (!texture.getAsset().reloadFromSource()) {
                     BL_LOG_ERROR << "Failed to reload texture asset for texture file "
-                                 << tex.getFilePath() << " in material "
-                                 << ctx.getAsset();
+                                 << tex.getFilePath() << " in material " << ctx.getAsset();
                     return false;
                 }
             }
@@ -116,18 +115,19 @@ bool MaterialDriver::doRead(as::ReadContext& ctx, MaterialPayload& payload) {
     stream::InputStream input;
     if (!ctx.setupReadStream("materialMetadata.json", input)) { return false; }
     if (ctx.getMode() == as::Mode::Editor) {
-        return serial::json::Serializer<MaterialPayload>::deserializeStream(input, payload);
+        return serial::json::SerializerChecked<MaterialPayload>::deserializeStream(input, payload);
     }
-    else { return serial::binary::Serializer<MaterialPayload>::deserialize(input, payload); }
+    else { return serial::binary::SerializerChecked<MaterialPayload>::deserialize(input, payload); }
 }
 
 bool MaterialDriver::doWrite(as::WriteContext& ctx, const MaterialPayload& payload) {
     stream::OutputStream output;
     if (!ctx.setupWriteStream("materialMetadata.json", output)) { return false; }
     if (ctx.getMode() == as::Mode::Editor) {
-        return serial::json::Serializer<MaterialPayload>::serializeStream(output, payload, 4, 0);
+        return serial::json::SerializerChecked<MaterialPayload>::serializeStream(
+            output, payload, 4, 0);
     }
-    else { return serial::binary::Serializer<MaterialPayload>::serialize(output, payload); }
+    else { return serial::binary::SerializerChecked<MaterialPayload>::serialize(output, payload); }
 }
 
 } // namespace asi

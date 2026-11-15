@@ -1,6 +1,7 @@
 #ifndef BLIB_SERIALIZATION_BINARY_DETAIL_OUTPUTSTREAMWRAPPER_HPP
 #define BLIB_SERIALIZATION_BINARY_DETAIL_OUTPUTSTREAMWRAPPER_HPP
 
+#include <BLIB/Serialization/SerializationError.hpp>
 #include <BLIB/Streams/OutputStream.hpp>
 #include <BLIB/Util/FileUtil.hpp>
 #include <cstdint>
@@ -39,34 +40,31 @@ public:
      * @return bool True if the value could be written
      */
     template<typename T>
-    typename std::enable_if<std::is_integral_v<T>, bool>::type write(const T& data);
+    typename std::enable_if<std::is_integral_v<T>, void>::type write(const T& data);
 
     /**
      * @brief Writes the string to the stream. Stores 4 bytes for the length, then the content of
      *        the string
      *
      * @param data The string to write
-     * @return bool True if the value could be written
      */
-    bool write(const std::string& data);
+    void write(const std::string& data);
 
     /**
      * @brief Writes the string to the stream. Stores 4 bytes for the length, then the content of
      *        the string
      *
      * @param data The string to write
-     * @return bool True if the value could be written
      */
-    bool write(std::string_view data);
+    void write(std::string_view data);
 
     /**
      * @brief Writes the string to the stream. Stores 4 bytes for the length, then the content of
      *        the string
      *
      * @param data The string to write
-     * @return bool True if the value could be written
      */
-    bool write(const char* data);
+    void write(const char* data);
 
     /**
      * @brief Returns the status of the stream
@@ -81,9 +79,9 @@ private:
 ///////////////////////////// INLINE FUNCTIONS ////////////////////////////////////
 
 template<typename T>
-typename std::enable_if<std::is_integral_v<T>, bool>::type OutputStreamWrapper::write(
+typename std::enable_if<std::is_integral_v<T>, void>::type OutputStreamWrapper::write(
     const T& data) {
-    if (!buffer.isValid()) return false;
+    if (!buffer.isValid()) { throw SerializationError("Cannot write to invalid stream"); }
 
     constexpr std::size_t size = sizeof(T);
     char bytes[size];
@@ -95,7 +93,12 @@ typename std::enable_if<std::is_integral_v<T>, bool>::type OutputStreamWrapper::
             }
         }
     }
-    return buffer.write(bytes, size);
+    try {
+        buffer.write(bytes, size);
+    } catch (const stream::StreamError& e) {
+        const std::string msg = "Failed to write integral value to stream";
+        throw SerializationError(e, msg);
+    }
 }
 
 inline bool OutputStreamWrapper::good() const { return buffer.isValid(); }

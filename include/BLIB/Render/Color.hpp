@@ -185,21 +185,22 @@ template<>
 struct Serializer<rc::Color> {
     using ChannelSerial = Serializer<std::uint8_t>;
 
-    static bool serialize(stream::OutputStream& output, const rc::Color& v) {
+    static void serialize(stream::OutputStream& output, const rc::Color& v) {
         const sf::Color col = v.toSfColor();
-        return ChannelSerial::serialize(output, col.r) && ChannelSerial::serialize(output, col.g) &&
-               ChannelSerial::serialize(output, col.b) && ChannelSerial::serialize(output, col.a);
+        ChannelSerial::serialize(output, col.r);
+        ChannelSerial::serialize(output, col.g);
+        ChannelSerial::serialize(output, col.b);
+        ChannelSerial::serialize(output, col.a);
     }
 
-    static bool deserialize(stream::InputStream& input, rc::Color& v) {
+    static void deserialize(stream::InputStream& input, rc::Color& v) {
         std::uint8_t r, g, b, a;
-        if (!ChannelSerial::deserialize(input, r) || !ChannelSerial::deserialize(input, g) ||
-            !ChannelSerial::deserialize(input, b) || !ChannelSerial::deserialize(input, a)) {
-            return false;
-        }
+        ChannelSerial::deserialize(input, r);
+        ChannelSerial::deserialize(input, g);
+        ChannelSerial::deserialize(input, b);
+        ChannelSerial::deserialize(input, a);
 
         v = sf::Color(r, g, b, a);
-        return true;
     }
 
     static std::uint32_t size(const rc::Color&) { return ChannelSerial::size(0) * 4; }
@@ -218,27 +219,26 @@ struct Serializer<rc::Color> {
         priv::Serializer<rc::Color>::serializeInto(g, key, val, &serialize);
     }
 
-    static bool deserialize(rc::Color& result, const Value& val) {
+    static void deserialize(rc::Color& result, const Value& val) {
         glm::vec4 parsed;
-        if (!VecSerial::deserialize(parsed, val)) { return false; }
+        VecSerial::deserialize(parsed, val);
         result = parsed;
-        return true;
     }
 
-    static bool deserializeFrom(const Value& val, const std::string& key, rc::Color& result) {
-        return priv::Serializer<rc::Color>::deserializeFrom(val, key, result, &deserialize);
+    static void deserializeFrom(const Value& val, const std::string& key, rc::Color& result) {
+        priv::Serializer<rc::Color>::deserializeFrom(val, key, result, &deserialize);
     }
 
-    static bool deserializeStream(stream::InputStream& stream, rc::Color& result) {
+    static void deserializeStream(stream::InputStream& stream, rc::Color& result) {
         json::Loader loader(stream);
         Value val(0);
-        if (!loader.loadValue(val)) return false;
-        return deserialize(result, val);
+        loader.loadValue(val);
+        deserialize(result, val);
     }
 
-    static bool serializeStream(stream::OutputStream& stream, const rc::Color& value,
+    static void serializeStream(stream::OutputStream& stream, const rc::Color& value,
                                 unsigned int tab, unsigned int indent) {
-        return VecSerial::serializeStream(stream, value.toVec4(), tab, indent);
+        VecSerial::serializeStream(stream, value.toVec4(), tab, indent);
     }
 };
 } // namespace json

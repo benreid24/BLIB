@@ -29,9 +29,14 @@ bool FileDriver::doRead(as::ReadContext& ctx, FilePayload& payload) {
 }
 
 bool FileDriver::doWrite(as::WriteContext& ctx, const FilePayload& payload) {
-    stream::OutputStream output;
-    if (!ctx.setupWriteStream("file", output)) { return false; }
-    return output.write(payload.getData().data(), payload.getData().size());
+    try {
+        stream::OutputStream output;
+        if (!ctx.setupWriteStream("file", output)) { return false; }
+        output.write(payload.getData().data(), payload.getData().size());
+    } catch (const stream::StreamError& e) {
+        BL_LOG_ERROR << "Failed to write file asset: " << e.what();
+        return false;
+    }
 }
 
 } // namespace asi

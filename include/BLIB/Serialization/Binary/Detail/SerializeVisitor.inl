@@ -8,39 +8,24 @@
 namespace detail
 {
 template<typename T>
-bool serializeVisitor(stream::OutputStream& stream, const T& value, bool packed) {
+void serializeVisitor(stream::OutputStream& stream, const T& value, bool packed) {
     using Reflected = refl::ReflectedObject<T>;
 
-    bool result = true;
     OutputStreamWrapper wrapper(stream);
-    if (!packed && !wrapper.write<std::uint16_t>(Reflected::spec.memberCount)) { return false; }
+    if (!packed) { wrapper.write<std::uint16_t>(Reflected::spec.memberCount); }
 
-    refl::visit(
-        value,
-        [&stream, &wrapper, &result, packed](const auto& reflMember, const auto& memberValue) {
-            if (!result) { return; }
+    refl::visit(value,
+                [&stream, &wrapper, packed](const auto& reflMember, const auto& memberValue) {
+                    using MemberType               = std::decay_t<decltype(memberValue)>;
+                    const std::uint16_t memberId   = reflMember.getId();
+                    const std::uint32_t memberSize = Serializer<MemberType>::size(memberValue);
 
-            using MemberType               = std::decay_t<decltype(memberValue)>;
-            const std::uint16_t memberId   = reflMember.getId();
-            const std::uint32_t memberSize = Serializer<MemberType>::size(memberValue);
-
-            if (!packed) {
-                if (!wrapper.write<std::uint16_t>(memberId)) {
-                    result = false;
-                    return;
-                }
-                if (!wrapper.write<std::uint32_t>(memberSize)) {
-                    result = false;
-                    return;
-                }
-            }
-            if (!Serializer<MemberType>::serialize(stream, memberValue)) {
-                result = false;
-                return;
-            }
-        });
-
-    return result;
+                    if (!packed) {
+                        wrapper.write<std::uint16_t>(memberId);
+                        wrapper.write<std::uint32_t>(memberSize);
+                    }
+                    Serializer<MemberType>::serialize(stream, memberValue);
+                });
 }
 
 } // namespace detail

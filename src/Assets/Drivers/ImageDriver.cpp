@@ -39,7 +39,7 @@ bool ImageDriver::doWrite(as::WriteContext& ctx, const ImagePayload& payload) {
     if (!ctx.setupWriteStream("image.png", output)) { return false; }
     const auto data = payload.get().saveToMemory("png");
     if (!data.has_value()) { return false; }
-    return output.write(data->data(), data->size());
+    return output.writeChecked(data->data(), data->size());
 }
 
 } // namespace asi

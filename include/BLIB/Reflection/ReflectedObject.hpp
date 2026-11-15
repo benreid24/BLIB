@@ -6,6 +6,7 @@
 #include <BLIB/Reflection/Detail/IsSpec.hpp>
 #include <BLIB/Reflection/ReflectedMember.hpp>
 #include <BLIB/Reflection/Spec.hpp>
+#include <string>
 
 namespace bl
 {
@@ -85,6 +86,18 @@ void visit(const ObjectType& object, VisitorType&& visitor) {
  */
 template<typename T>
 constexpr std::string_view name = ReflectedObject<T>::spec.name;
+
+/**
+ * @brief Convenience accessor for the name of a reflected type, defaulting to typeid(T).name()
+ *
+ * @tparam T The object type to get the name of
+ * @ingroup Reflection
+ */
+template<typename T>
+std::string getNameSafe() {
+    return ReflectedObject<T>::spec.name.empty() ? typeid(T).name() :
+                                                   std::string(ReflectedObject<T>::spec.name);
+}
 
 /**
  * @brief Convenience accessor for the number of members in a reflected type

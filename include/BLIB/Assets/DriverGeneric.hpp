@@ -113,11 +113,11 @@ public:
         if (!ctx.setupReadStream(Filename, input)) { return false; }
         if constexpr (EditorSaveJson) {
             if (ctx.getMode() == Mode::Editor) {
-                return serial::json::Serializer<DataType>::deserializeStream(input,
+                return serial::json::SerializerChecked<DataType>::deserializeStream(input,
                                                                              getData(payload));
             }
         }
-        return serial::binary::Serializer<DataType>::deserialize(input, getData(payload));
+        return serial::binary::SerializerChecked<DataType>::deserialize(input, getData(payload));
     }
 
     /**
@@ -132,11 +132,11 @@ public:
         if (!ctx.setupWriteStream(Filename, output)) { return false; }
         if constexpr (EditorSaveJson) {
             if (ctx.getMode() == Mode::Editor) {
-                return serial::json::Serializer<DataType>::serializeStream(
+                return serial::json::SerializerChecked<DataType>::serializeStream(
                     output, getData(payload), 4, 0);
             }
         }
-        return serial::binary::Serializer<DataType>::serialize(output, getData(payload));
+        return serial::binary::SerializerChecked<DataType>::serialize(output, getData(payload));
     }
 
 private:

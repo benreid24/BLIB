@@ -12,7 +12,6 @@ target_sources(BLIB PUBLIC
     RangeAllocatorUnbounded.hpp
     ReadWriteLock.hpp
     Signal.hpp
-    StreamUtil.hpp
     TemplateLogic.hpp
     ThreadPool.hpp
     Timer.hpp

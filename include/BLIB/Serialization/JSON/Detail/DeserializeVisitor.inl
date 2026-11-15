@@ -4,14 +4,11 @@
 namespace detail
 {
 template<typename T>
-bool deserializeVisitor(const json::Group& group, T& value) {
-    bool result     = true;
-    refl::visit(value, [&group, &result](const auto& reflMember, auto& memberValue) {
-        if (!result) { return; }
-
+void deserializeVisitor(const ::bl::serial::json::Group& group, T& value) {
+    refl::visit(value, [&group](const auto& reflMember, auto& memberValue) {
         using MemberType = std::decay_t<decltype(memberValue)>;
         const std::string memberName(reflMember.getName());
-        const json::Value* memberJson = group.getField(memberName);
+        const ::bl::serial::json::Value* memberJson = group.getField(memberName);
 
         if (!memberJson) {
             if constexpr (reflMember.template hasAttribute<Trait::Optional>()) {
@@ -22,18 +19,16 @@ bool deserializeVisitor(const json::Group& group, T& value) {
                     else { memberValue = MemberType{}; }
                 }
             }
-            else {
-                result = false;
-                return;
-            }
+            else { throw SerializationError("Missing required field: " + memberName); }
         }
         else {
-            if (!json::Serializer<MemberType>::deserialize(memberValue, *memberJson)) {
-                result = false;
+            try {
+                ::bl::serial::json::Serializer<MemberType>::deserialize(memberValue, *memberJson);
+            } catch (const SerializationError& e) {
+                throw SerializationError(e, std::string("Failed to parse field: ") + memberName);
             }
         }
     });
-    return result;
 }
 } // namespace detail
 

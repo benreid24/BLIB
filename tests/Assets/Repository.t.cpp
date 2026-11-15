@@ -66,7 +66,9 @@ struct TestDriver : public Driver<TestPayload> {
     virtual bool doWrite(WriteContext& ctx, const TestPayload& payload) override {
         stream::OutputStream output;
         if (!ctx.setupWriteStream("payload.txt", output)) { return false; }
-        if (!output.write(payload.data.data(), payload.data.size())) { return false; }
+        try {
+            output.write(payload.data.data(), payload.data.size());
+        } catch (...) { return false; }
         return true;
     }
 };
@@ -327,6 +329,7 @@ TEST_F(RepositoryTest, EditorSaveLoad) {
 
 TEST_F(RepositoryTest, EditorLoadMissingDependency) {
     rand::UUID uuid;
+    std::string assetFolder;
     {
         Repository repo(Mode::Editor, AssetDirectory);
         repo.registerDriver<TestDriver>(TestTypeTag);
@@ -334,10 +337,12 @@ TEST_F(RepositoryTest, EditorLoadMissingDependency) {
         auto asset = repo.createAsset<TestPayload>("TestName", TestCreateContext("test_data"));
         uuid       = asset.getAsset().getUUID();
         ASSERT_TRUE(asset.isValid());
+        assetFolder = asset->getAsset().getMetadata().getPath();
     }
 
-    std::filesystem::rename(EditorPaths::getAssetPath(AssetDirectory, "", uuid, "TestName"),
-                            EditorPaths::getAssetPath(AssetDirectory, "", uuid, "renamed"));
+    std::filesystem::rename(
+        EditorPaths::getAssetPath(AssetDirectory, assetFolder, uuid, "TestName"),
+        EditorPaths::getAssetPath(AssetDirectory, assetFolder, uuid, "renamed"));
 
     Repository repo(Mode::Editor, AssetDirectory);
     repo.registerDriver<TestDriver>(TestTypeTag);
@@ -403,24 +408,28 @@ TEST_F(RepositoryTest, ReleaseUnused) {
 TEST_F(RepositoryTest, FindMissing) {
     rand::UUID uuid1;
     rand::UUID uuid2;
+    std::string assetFolder1;
+    std::string assetFolder2;
     {
         Repository repo(Mode::Editor, AssetDirectory);
         repo.registerDriver<TestDriver>(TestTypeTag);
 
-        auto asset1 = repo.createAsset<TestPayload>("TestName", TestCreateContext("test_data"));
-        uuid1       = asset1.getAsset().getUUID();
+        auto asset1  = repo.createAsset<TestPayload>("TestName", TestCreateContext("test_data"));
+        uuid1        = asset1.getAsset().getUUID();
+        assetFolder1 = asset1->getAsset().getMetadata().getPath();
 
-        auto asset2 = repo.createAsset<TestPayload>("TestName2", TestCreateContext("test_data2"));
-        uuid2       = asset2.getAsset().getUUID();
+        auto asset2  = repo.createAsset<TestPayload>("TestName2", TestCreateContext("test_data2"));
+        uuid2        = asset2.getAsset().getUUID();
+        assetFolder2 = asset2->getAsset().getMetadata().getPath();
     }
 
     // delete asset1
     util::FileUtil::deleteDirectory(
-        EditorPaths::getAssetPath(AssetDirectory, "", uuid1, "TestName"));
+        EditorPaths::getAssetPath(AssetDirectory, assetFolder1, uuid1, "TestName"));
 
     // move asset2
     util::FileUtil::moveDirectory(
-        EditorPaths::getAssetPath(AssetDirectory, "", uuid2, "TestName2"),
+        EditorPaths::getAssetPath(AssetDirectory, assetFolder2, uuid2, "TestName2"),
         EditorPaths::getAssetPath(AssetDirectory, "TestFolder", uuid2, "TestName2Renamed"));
 
     Repository repo(Mode::Editor, AssetDirectory);

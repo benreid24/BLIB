@@ -351,7 +351,7 @@ bool Repository::writeManifestLocked() {
         .sourceLinks = &sourceLinks,
         .keyToAsset  = &keyToAsset,
     };
-    if (!serial::json::Serializer<EditorRuntimeData>::serializeStream(manifestFile, data, 4, 0)) {
+    if (!serial::json::SerializerChecked<EditorRuntimeData>::serializeStream(manifestFile, data, 4, 0)) {
         BL_LOG_ERROR << "Failed to write asset manifest to " << manifestPath;
         return false;
     }
@@ -380,7 +380,7 @@ bool Repository::loadRepository() {
             .sourceLinks = &sourceLinks,
             .keyToAsset  = &keyToAsset,
         };
-        if (!serial::json::Serializer<EditorRuntimeData>::deserializeStream(manifestFile, data)) {
+        if (!serial::json::SerializerChecked<EditorRuntimeData>::deserializeStream(manifestFile, data)) {
             BL_LOG_ERROR << "Failed to deserialize asset manifest at " << manifestPath;
             return false;
         }
@@ -453,7 +453,7 @@ bool Repository::loadRepository() {
 
                 // load asset info
                 auto it = assets.try_emplace(uuid, *this).first;
-                if (!serial::json::Serializer<Asset>::deserializeStream(assetFile, it->second)) {
+                if (!serial::json::SerializerChecked<Asset>::deserializeStream(assetFile, it->second)) {
                     BL_LOG_ERROR << "Failed to deserialize asset metadata at " << pair.second;
                     assets.erase(it);
                     continue;
@@ -482,7 +482,7 @@ bool Repository::loadRepository() {
         GameRuntimeData data{.assets         = &assets,
                              .keyToAsset     = &keyToAsset,
                              .bundleManifest = &bundleRuntime.manifest};
-        if (!serial::binary::Serializer<GameRuntimeData>::deserialize(manifestFile, data)) {
+        if (!serial::binary::SerializerChecked<GameRuntimeData>::deserialize(manifestFile, data)) {
             BL_LOG_ERROR << "Failed to read asset manifest file";
             return false;
         }
@@ -670,7 +670,7 @@ bool Repository::exportRepository(const std::string& path) {
         BL_LOG_ERROR << "Failed to open manifest file for writing";
         return false;
     }
-    return serial::binary::Serializer<GameRuntimeData>::serialize(output, manifestData);
+    return serial::binary::SerializerChecked<GameRuntimeData>::serialize(output, manifestData);
 }
 
 void Repository::releaseUnused() {

@@ -110,7 +110,7 @@ bool MusicDriver::doWrite(as::WriteContext& ctx, const MusicPayload&) {
             BL_LOG_ERROR << "Failed to read music chunk";
             return false;
         }
-        if (!writeStream.write(buffer.data(), toRead)) {
+        if (!writeStream.writeChecked(buffer.data(), toRead)) {
             BL_LOG_ERROR << "Failed to write music chunk";
             return false;
         }

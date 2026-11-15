@@ -16,8 +16,8 @@ bool BundleData::flush(const std::string& base) {
     stream::OutputStream output(RuntimePaths::getBundlePath(base, uuid));
     if (!output.isValid()) { return false; }
 
-    headerSize = serial::binary::Serializer<BundleData>::size(*this) - data.size();
-    return serial::binary::Serializer<BundleData>::serialize(output, *this);
+    headerSize = serial::binary::SerializerChecked<BundleData>::size(*this) - data.size();
+    return serial::binary::SerializerChecked<BundleData>::serialize(output, *this);
 }
 
 void BundleData::reset() {

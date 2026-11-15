@@ -1,52 +1,63 @@
-#include <BLIB/Util/StreamUtil.hpp>
+#include <BLIB/Streams/StreamUtil.hpp>
+
+#include <BLIB/Streams/StreamError.hpp>
 
 namespace bl
 {
-namespace util
+namespace stream
 {
-bool StreamUtil::skipWhitespace(std::istream& s) {
+void StreamUtil::skipWhitespace(std::istream& s) {
     while (s.good() && std::isspace(s.peek())) { s.get(); }
-    return s.good();
+    if (!s.good()) { throw StreamError("Failed to skip whitespace, stream is in a bad state"); }
 }
 
-bool StreamUtil::skipWhitespace(stream::InputStream& s) {
+void StreamUtil::skipWhitespace(stream::InputStream& s) {
     while (s.isValid() && std::isspace(s.peek())) { s.get(); }
-    return s.isValid();
+    if (!s.isValid()) { throw StreamError("Failed to skip whitespace, stream is in a bad state"); }
 }
 
-bool StreamUtil::skipUntil(std::istream& s, char delim) {
+void StreamUtil::skipUntil(std::istream& s, char delim) {
     while (s.good() && s.peek() != delim) { s.get(); }
-    return s.good() && s.peek() == delim;
+    if (!s.good() || s.peek() != delim) {
+        throw StreamError("Failed to skip until delimiter, stream is in a bad state");
+    }
 }
 
-bool StreamUtil::skipUntil(stream::InputStream& s, char delim) {
+void StreamUtil::skipUntil(stream::InputStream& s, char delim) {
     while (s.isValid() && s.peek() != delim) { s.get(); }
-    return s.isValid() && s.peek() == delim;
+    if (!s.isValid() || s.peek() != delim) {
+        throw StreamError("Failed to skip until delimiter, stream is in a bad state");
+    }
 }
 
 void StreamUtil::getline(stream::InputStream& s, std::string& output, char delim) {
     output.clear();
     while (s.isValid()) {
         const char c = s.get();
-        if (c == EOF) { break; }
-        if (c == delim) { break; }
+        if (c == EOF) { throw StreamError("Failed to read line, unexpected EOF"); }
+        if (c == delim) { return; }
         output += c;
     }
+    throw StreamError("Failed to read line, stream is in a bad state");
 }
 
 bool StreamUtil::isNumeric(char c) {
     return std::isdigit(static_cast<unsigned char>(c)) || c == '-';
 }
 
-bool StreamUtil::writeRepeated(std::ostream& s, char c, unsigned int count) {
+void StreamUtil::writeRepeated(std::ostream& s, char c, unsigned int count) {
     for (unsigned int i = 0; i < count; ++i) { s << c; }
-    return s.good();
+    if (!s.good()) {
+        throw StreamError("Failed to write repeated characters, stream is in a bad state");
+    }
 }
 
-bool StreamUtil::writeRepeated(stream::OutputStream& s, char c, unsigned int count) {
+void StreamUtil::writeRepeated(stream::OutputStream& s, char c, unsigned int count) {
     for (unsigned int i = 0; i < count; ++i) { s << c; }
-    return s.isValid();
+    if (!s.isValid()) {
+        throw StreamError("Failed to write repeated characters, stream is in a bad state");
+    }
 }
 
-} // namespace util
+} // namespace stream
 } // namespace bl

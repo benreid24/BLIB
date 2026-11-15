@@ -159,13 +159,13 @@ bool ModelDriver::doCreate(as::CreateContext& ctx, ModelPayload& payload) {
 bool ModelDriver::doRead(as::ReadContext& ctx, ModelPayload& payload) {
     stream::InputStream input;
     if (!ctx.setupReadStream("model.bmdl", input)) { return false; }
-    return serial::binary::Serializer<ModelPayload>::deserialize(input, payload);
+    return serial::binary::SerializerChecked<ModelPayload>::deserialize(input, payload);
 }
 
 bool ModelDriver::doWrite(as::WriteContext& ctx, const ModelPayload& payload) {
     stream::OutputStream output;
     if (!ctx.setupWriteStream("model.bmdl", output)) { return false; }
-    return serial::binary::Serializer<ModelPayload>::serialize(output, payload);
+    return serial::binary::SerializerChecked<ModelPayload>::serialize(output, payload);
 }
 
 } // namespace asi

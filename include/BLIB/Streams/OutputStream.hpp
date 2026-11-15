@@ -109,13 +109,21 @@ public:
     void close();
 
     /**
+     * @brief Writes data into the underlying stream. May throw StreamError
+     *
+     * @param data The data to write
+     * @param len The number of bytes to write
+     */
+    void write(const void* data, std::size_t len);
+
+    /**
      * @brief Writes data into the underlying stream
      *
      * @param data The data to write
      * @param len The number of bytes to write
-     * @return True if the data was successfully written, false otherwise
+     * @return True if the write was successful, false otherwise
      */
-    bool write(const void* data, std::size_t len);
+    bool writeChecked(const void* data, std::size_t len);
 
     /**
      * @brief Returns the underlying buffer. Only valid if the stream is in Memory mode

@@ -122,9 +122,19 @@ template<typename Payload, typename DefaultLoader, typename... Versions>
 bool VersionedSerializer<Payload, DefaultLoader, Versions...>::write(stream::OutputStream& output,
                                                                      const Payload& value) {
     detail::OutputStreamWrapper wrapper(output);
-    if (!wrapper.write<std::uint32_t>(Header)) return false;
-    if (!wrapper.write<std::uint32_t>(CurrentVersionNumber)) return false;
-    return LatestVersion::write(value, output);
+    try {
+        wrapper.write<std::uint32_t>(Header);
+        wrapper.write<std::uint32_t>(CurrentVersionNumber);
+        return LatestVersion::write(value, output);
+    } catch (const stream::StreamError& e) {
+        BL_LOG_ERROR << "Failed to write versioned binary file for payload "
+                     << typeid(Payload).name() << ": " << e.what();
+        return false;
+    } catch (const SerializationError& e) {
+        BL_LOG_ERROR << "Failed to write versioned binary file for payload "
+                     << typeid(Payload).name() << ": " << e.what();
+        return false;
+    }
 }
 
 template<typename Payload, typename DefaultLoader, typename... Versions>
@@ -132,23 +142,33 @@ bool VersionedSerializer<Payload, DefaultLoader, Versions...>::read(stream::Inpu
                                                                     Payload& value) {
     constexpr bool (*loaders[])(Payload&, stream::InputStream&) = {&Versions::read...};
 
-    detail::InputStreamWrapper wrapper(input);
-    std::uint32_t header = 0;
-    if (!wrapper.peek<uint32_t>(header)) return false;
+    try {
+        detail::InputStreamWrapper wrapper(input);
+        std::uint32_t header = 0;
+        wrapper.peek<uint32_t>(header);
 
-    if (header == Header) {
-        wrapper.skip(sizeof(std::uint32_t)); // skip header
+        if (header == Header) {
+            wrapper.skip(sizeof(std::uint32_t)); // skip header
 
-        std::uint32_t version;
-        if (!wrapper.read<std::uint32_t>(version)) return false;
-        if (version >= VersionCount) {
-            BL_LOG_ERROR << "Invalid file version for payload" << typeid(Payload).name() << ": "
-                         << " version=" << version << " max version=" << CurrentVersionNumber;
-            return false;
+            std::uint32_t version;
+            wrapper.read<std::uint32_t>(version);
+            if (version >= VersionCount) {
+                BL_LOG_ERROR << "Invalid file version for payload" << typeid(Payload).name() << ": "
+                             << " version=" << version << " max version=" << CurrentVersionNumber;
+                return false;
+            }
+            return loaders[version](value, input);
         }
-        return loaders[version](value, input);
+        return DefaultLoader::read(value, input);
+    } catch (const stream::StreamError& e) {
+        BL_LOG_ERROR << "Failed to read versioned binary file for payload "
+                     << typeid(Payload).name() << ": " << e.what();
+        return false;
+    } catch (const SerializationError& e) {
+        BL_LOG_ERROR << "Failed to write versioned binary file for payload "
+                     << typeid(Payload).name() << ": " << e.what();
+        return false;
     }
-    return DefaultLoader::read(value, input);
 }
 
 } // namespace binary
