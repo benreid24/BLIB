@@ -1,7 +1,5 @@
 #include <BLIB/Logging.hpp>
 
-#include <BLIB/Engine/Engine.hpp>
-
 namespace bl
 {
 namespace logging
@@ -19,18 +17,12 @@ Logger Logger::debug() { return Logger(Config::Debug); }
 Logger Logger::trace() { return Logger(Config::Trace); }
 
 Logger::Logger(int level)
-: level(level) {
-    ss << Config::get().genPrefix(level);
-}
+: level(level)
+, time(std::time(nullptr)) {}
 
 Logger::~Logger() {
     if (ss.str().back() != '\n') { ss << '\n'; }
-    engine::Engine* engine = engine::Engine::getInstance();
-    if (engine && engine->fastTaskThreadpool().running()) {
-        engine->fastTaskThreadpool().queueTask(
-            std::bind(&Config::doWrite, &Config::get(), ss.str(), level));
-    }
-    else { Config::get().doWrite(ss.str(), level); }
+    Config::get().doWrite(time, ss.str(), level);
 }
 
 } // namespace logging

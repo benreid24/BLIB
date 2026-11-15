@@ -83,6 +83,7 @@ private:
     Logger(int level);
 
     const int level;
+    const std::time_t time;
     mutable std::stringstream ss;
 };
 

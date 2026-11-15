@@ -196,6 +196,7 @@ bool Engine::loop() {
     fastTaskWorkers.start(2);
     longTaskWorkers.start(2);
     states.top()->activate(*this);
+    logging::Config::setIsBuffering(true);
     eventEmitter.emit<event::Startup>({states.top()});
 
     sf::Clock loopTimer;        // measures duration of entire loop top to bottom
@@ -436,6 +437,9 @@ bool Engine::loop() {
                 renderLock.unlock();
                 renderingCv.notify_one();
             }
+
+            // Dispatch log flush before sleep
+            fastTaskWorkers.queueTask([]() { logging::Config::flush(); });
 
             // Adhere to FPS cap
             const std::int64_t st = minFrameLength - loopTimer.getElapsedTime().asMicroseconds();

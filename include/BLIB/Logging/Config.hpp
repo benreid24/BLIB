@@ -2,10 +2,10 @@
 #define BLIB_LOGGING_LOGGINGCONFIG_HPP
 
 #include <BLIB/Util/NonCopyable.hpp>
+#include <atomic>
 #include <fstream>
 #include <list>
 #include <mutex>
-#include <optional>
 #include <ostream>
 #include <string>
 #include <vector>
@@ -26,12 +26,34 @@ struct Logger;
  */
 class Config : public util::NonCopyable {
 public:
+    static constexpr std::size_t DefaultBufferSize = 1024;
+
     static constexpr int Critical = 5;
     static constexpr int Error    = 4;
     static constexpr int Warn     = 3;
     static constexpr int Info     = 2;
     static constexpr int Debug    = 1;
     static constexpr int Trace    = 0;
+
+    /**
+     * @brief Set the size of buffers used to store logs lines before they are flushed. Two buffers
+     *
+     * @param size The size of the buffer in log lines
+     */
+    static void setBufferSize(std::size_t lines);
+
+    /**
+     * @brief Sets whether outputs are buffered or immediately written to all streams. If buffering
+     *        is enabled then call flush() periodically (called by Engine when running)
+     *
+     * @param buffering True to buffer, false to write immediately
+     */
+    static void setIsBuffering(bool buffering);
+
+    /**
+     * @brief Flushes buffered outputs. No effect if not buffering
+     */
+    static void flush();
 
     /**
      * @brief Add or modify an output stream to the config. Can be called multiple times on the
@@ -72,14 +94,35 @@ public:
     static void timeInUTC(bool utc);
 
 private:
-    std::mutex mutex;
+    struct Line {
+        std::string content;
+        int level;
+        std::time_t time;
+
+        void assign(std::string&& content, int level, std::time_t time);
+    };
+
+    struct Buffer {
+        std::mutex flushMutex;
+        std::vector<Line> lines;
+        std::atomic<unsigned int> head;
+
+        Buffer();
+    };
+
+    std::mutex outputMutex;
     bool utc;
     std::vector<std::pair<std::ostream*, int>> outputs;
     std::list<std::fstream> files;
 
-    void doWrite(const std::string& content, int level);
-    std::string genPrefix(int level) const;
+    std::atomic_flag buffering;
+    Buffer buffers[2];
+    std::atomic<unsigned int> bufferIndex;
+
+    void doWrite(std::time_t time, std::string&& content, int level);
     static void configureOutputLocked(std::ostream& output, int logLevel);
+    void flushBuffer(unsigned int i);
+    void outputLineLocked(std::string_view content, int level, std::time_t time, bool flush);
 
     Config();
     static Config& get();
